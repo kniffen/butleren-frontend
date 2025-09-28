@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from 'react';
 import type { LogEntry } from '../../types';
 
-export interface LoggerHook {
-  getLogEntries: (date: string) => Promise<LogEntry[]>;
+export interface LogsHook {
+  getLogs: (date: string) => Promise<LogEntry[]>;
 }
 
-export const useLogger = (): LoggerHook => {
-  const getLogEntries = useCallback(async (date: string) => {
-    const res = await fetch(`/api/logger/entries?date=${date}`);
+export const useLogs = (): LogsHook => {
+  const getLogs = useCallback(async (date: string) => {
+    const res = await fetch(`/api/logs?date=${date}`);
     if (!res.ok) {
       return [];
     }
@@ -18,6 +18,6 @@ export const useLogger = (): LoggerHook => {
   }, []);
 
   return useMemo(() => ({
-    getLogEntries,
-  }), [getLogEntries]);
+    getLogs,
+  }), [getLogs]);
 };

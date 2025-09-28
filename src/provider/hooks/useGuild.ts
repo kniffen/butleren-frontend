@@ -53,7 +53,7 @@ export const useGuild = (): GuildHook => {
 
 export async function putGuildSettings(id: string, settings: GuildSettings): Promise<boolean> {
   const res = await fetch(
-    `/api/discord/guilds/${id}/settings`,
+    `/api/discord/guilds/${id}`,
     {
       method:  'PUT',
       headers: { 'Content-Type': 'application/json' },
