@@ -28,6 +28,7 @@ export const Sidebar = function(): JSX.Element {
     </div>
 
     <div className="links">
+      <Link to="/users">Users</Link>
       <Link to="/logs">Logs</Link>
     </div>
   </nav>);
