@@ -1,3 +1,0 @@
-[submodule "src/lib/api-contract"]
-	path = src/lib/api-contract
-	url = https://github.com/kniffen/butleren-api-contract
