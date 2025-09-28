@@ -6,8 +6,8 @@ import type { LogEntry } from '../../types';
 
 export function LogsPage(): JSX.Element {
   const hasFetchedLogs = useRef(false);
-  const { logger } = useAPI();
-  const [logs, setLogs] = useState<LogEntry[]>([]);
+  const { logs } = useAPI();
+  const [logEntries, setLogEntries] = useState<LogEntry[]>([]);
   const [level, setLevel] = useState<string>('all');
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export function LogsPage(): JSX.Element {
     }
 
     hasFetchedLogs.current = true;
-    logger.getLogEntries(new Date().toJSON().slice(0, 10)).then(setLogs);
-  }, [logger]);
+    logs.getLogs(new Date().toJSON().slice(0, 10)).then(setLogEntries);
+  }, [logs]);
 
   return (
     <>
@@ -41,7 +41,7 @@ export function LogsPage(): JSX.Element {
           <div className="logs-form__item">
             <label htmlFor='sort-order'>Sort</label>
             <select id="sort-order" onChange={() => {
-              setLogs(prevLogs => prevLogs.slice().reverse());
+              setLogEntries(prevLogs => prevLogs.slice().reverse());
             }}>
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
@@ -52,8 +52,8 @@ export function LogsPage(): JSX.Element {
             <label htmlFor='log-date'>Date</label>
             <input type="date" id="log-date" defaultValue={new Date().toJSON().slice(0, 10)} onChange={async (e) => {
               const date = e.target.value;
-              const logs = await logger.getLogEntries(date);
-              setLogs(logs);
+              const logEntries = await logs.getLogs(date);
+              setLogEntries(logEntries);
             }}/>
           </div>
         </form>
@@ -66,7 +66,7 @@ export function LogsPage(): JSX.Element {
           <span>Data</span>
           <span>Message</span>
         </div>
-        {logs.map(logEntry => (<LogEntry key={logEntry.id} level={level} logEntry={logEntry}/>))}
+        {logEntries.map(logEntry => (<LogEntry key={logEntry.id} level={level} logEntry={logEntry}/>))}
       </Card>
     </>
   );

@@ -27,8 +27,8 @@ export function UsersPage(): JSX.Element {
           <Card title={user.displayName} key={user.id}>
             <ul className="user-details">
               <li className="user-details__list-item"><b>Id</b><span>{user.id}</span></li>
-              <li className="user-details__list-item"><b>Latitude</b><span>{user.lat}</span></li>
-              <li className="user-details__list-item"><b>Longitude</b><span>{user.lon}</span></li>
+              <li className="user-details__list-item"><b>Latitude</b><span>{user.settings.lat}</span></li>
+              <li className="user-details__list-item"><b>Longitude</b><span>{user.settings.lon}</span></li>
             </ul>
           </Card>
         ))}
