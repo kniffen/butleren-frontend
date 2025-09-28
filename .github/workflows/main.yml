@@ -1,0 +1,55 @@
+on:
+  push:
+    branches: [
+      "feature/**",
+      "feat/**",
+      "fix/**",
+      "refactor/**",
+      "dependabot/**"
+    ]
+
+jobs:
+  quality-check:
+    uses: ./.github/workflows/quality-check.yml
+    with:
+      trigger_event: ${{ github.event_name }}
+
+  build:
+    uses: ./.github/workflows/build.yml
+    needs: quality-check
+    if: success()
+    with:
+      trigger_event: ${{ github.event_name }}
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [quality-check, build]
+    steps:
+    - name: Send webhook on success/failure
+      run: |
+        # Determine overall status
+        if [[ "${{ needs.quality-check.result }}" == "success" && "${{ needs.build.result }}" == "success" ]]; then
+          STATUS="success"
+          STATUS_COLOR="3066993"
+        else
+          STATUS="failure"
+          STATUS_COLOR="15158332"
+        fi
+
+        curl -X POST -H "Content-Type: application/json" \
+          -d "{
+            \"embeds\": [{
+              \"title\": \"CI/CD Pipeline\",
+              \"color\": $STATUS_COLOR,
+              \"fields\": [
+                {\"name\": \"Overall Status\", \"value\": \"\`$STATUS\`\", \"inline\": true},
+                {\"name\": \"Quality Check\", \"value\": \"\`${{ needs.quality-check.result }}\`\", \"inline\": true},
+                {\"name\": \"Build\", \"value\": \"\`${{ needs.build.result }}\`\", \"inline\": true},
+                {\"name\": \"Repository\", \"value\": \"\`${{ github.repository }}\`\", \"inline\": true},
+                {\"name\": \"Branch\", \"value\": \"\`${{ github.ref_name }}\`\", \"inline\": true}
+              ],
+              \"footer\": {\"text\": \"Commit: ${{ github.sha }}\"},
+              \"url\": \"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\"
+            }]
+          }" \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}

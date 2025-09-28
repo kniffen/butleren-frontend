@@ -1,0 +1,14 @@
+.layout {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  height: 100vh;
+}
+
+.main {
+  background-color: var(--color-gray--800);
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}

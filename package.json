@@ -1,0 +1,36 @@
+{
+  "name": "@kniffen/butleren-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "generate-schema": "cd ./src/lib/api-contract && npm install && npm run build-schema",
+    "postinstall": "npm run generate-schema",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "echo \"No test specified yet\" && exit 0",
+    "code-quality": "npm run typecheck && npm run lint"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.1",
+    "sass": "^1.86.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.3",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.4.0",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^7.1.7"
+  }
+}
