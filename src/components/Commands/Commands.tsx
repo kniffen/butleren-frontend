@@ -5,7 +5,7 @@ import { Toggle } from '../Toggle/Toggle';
 import './Commands.scss';
 
 export function Commands(): JSX.Element {
-  const { commands } = useAPI();
+  const { modules, commands } = useAPI();
 
   return (
     <div className="commands">
@@ -17,7 +17,10 @@ export function Commands(): JSX.Element {
             isLocked={command.isLocked}
             onChange={async (checked: boolean) => {
               await commands.updateSettings(command.slug, { isEnabled: checked });
-              await commands.update();
+              await Promise.all([
+                commands.update(),
+                modules.updateModules()
+              ]);
             }}
           />
           <p className="command-card__description">{command.description}</p>

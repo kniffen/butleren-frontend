@@ -5,7 +5,7 @@ import styles from './Modules.module.scss';
 import { Toggle } from '../../components/Toggle/Toggle';
 
 export function Modules(): JSX.Element {
-  const { modules } = useAPI();
+  const { modules, commands } = useAPI();
 
   return (
     <div className={styles.modules}>
@@ -17,7 +17,10 @@ export function Modules(): JSX.Element {
             isLocked={mod.isLocked}
             onChange={async (checked) => {
               await modules.updateModuleSettings(mod.slug, { isEnabled: checked });
-              await modules.updateModules();
+              await Promise.all([
+                modules.updateModules(),
+                commands.update()
+              ]);
             }}
           />
           <p>{mod.description}</p>
