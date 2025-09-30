@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { Guild, Command } from '../../types';
+import type { Guild, Command, CommandSettings } from '../../types';
 
 export interface ModulesHook {
   data: Command[];
   isLoading: boolean;
   update: () => Promise<void>;
+  updateSettings: (slug: string, settings: CommandSettings) => Promise<boolean>;
 }
 
 export const useCommands = (guild: Guild | null): ModulesHook => {
@@ -29,6 +30,20 @@ export const useCommands = (guild: Guild | null): ModulesHook => {
     setIsLoading(false);
   }, [guild]);
 
+  const updateSettings = useCallback(async (slug: string, settings: CommandSettings): Promise<boolean> => {
+    if (!guild) {
+      return false;
+    }
+
+    const res = await fetch(`/api/commands/${slug}/${guild.id}`, {
+      method:  'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(settings),
+    });
+
+    return res.ok;
+  }, [guild]);
+
   useEffect(() => {
     update();
   }, [guild]);
@@ -37,5 +52,6 @@ export const useCommands = (guild: Guild | null): ModulesHook => {
     data,
     isLoading,
     update,
-  }), [data, isLoading, update]);
+    updateSettings,
+  }), [data, isLoading, update, updateSettings]);
 };
