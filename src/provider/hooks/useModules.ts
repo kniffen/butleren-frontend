@@ -36,7 +36,7 @@ export const useModules = (guild: Guild | null): ModulesHook => {
     }
 
     const res = await fetch(`/api/modules/${slug}/${guild.id}`, {
-      method:  'POST',
+      method:  'PUT',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(settings),
     });
