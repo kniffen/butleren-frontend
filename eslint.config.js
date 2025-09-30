@@ -40,8 +40,8 @@ export default tseslint.config(
       "curly":                ["error", "all"],    // require braces around all control statements
 
       // Typescript specific
-      "@typescript-eslint/no-unused-vars": "warn",                 // Warn of unused variables
-      "@typescript-eslint/no-import-type-side-effects": "error",   // disallow non-null assertion in locations that may be confusing
+      "@typescript-eslint/no-unused-vars":                "error", // disallow unused variables
+      "@typescript-eslint/no-import-type-side-effects":   "error", // disallow non-null assertion in locations that may be confusing
       "@typescript-eslint/explicit-function-return-type": "error", // require explicit return types on functions and class methods
       'react-refresh/only-export-components': [
         'warn',

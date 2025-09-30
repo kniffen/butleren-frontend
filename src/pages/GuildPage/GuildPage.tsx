@@ -5,6 +5,7 @@ import { GuildStatistics } from '../../components/GuildStatistics/GuildStatistic
 import { GuildSettings } from '../../components/GuildSettings/GuildSettings';
 import { useParams } from 'react-router-dom';
 import { Modules } from '../../components/Modules/Modules';
+import { Commands } from '../../components/Commands/Commands';
 
 export const GuildPage = function(): ReactNode {
   const { guild } = useAPI();
@@ -31,7 +32,7 @@ const GuildPageContent = function(): ReactNode {
   }
 
   if ('commands' === params.content) {
-    return null;
+    return <Commands />;
   }
 
   return <>

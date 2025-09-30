@@ -3,6 +3,7 @@ import { Guild } from '../types';
 import { useGuilds } from './hooks/useGuilds';
 import { useGuild } from './hooks/useGuild';
 import { useModules } from './hooks/useModules';
+import { useCommands } from './hooks/useCommands';
 import { useLogs } from './hooks/useLogs';
 import { useUsers } from './hooks/useUsers';
 
@@ -11,6 +12,7 @@ export interface APIProviderState {
   updateGuilds: () => Promise<void>;
   guild: ReturnType<typeof useGuild>;
   modules: ReturnType<typeof useModules>;
+  commands: ReturnType<typeof useCommands>;
   users: ReturnType<typeof useUsers>;
   logs: ReturnType<typeof useLogs>;
 }
@@ -21,6 +23,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
   const guildsHook = useGuilds();
   const guild = useGuild();
   const modules = useModules(guild.data);
+  const commands = useCommands(guild.data);
   const users = useUsers();
   const logs = useLogs();
 
@@ -29,6 +32,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
       ...guildsHook,
       guild,
       modules,
+      commands,
       users,
       logs,
     }}>
