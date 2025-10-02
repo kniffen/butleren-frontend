@@ -23,6 +23,7 @@
 ::after {
   box-sizing: inherit;
   color-scheme: dark;
+  font-family: var(--font-family);
 }
 
 html,
@@ -36,7 +37,6 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-gray--800);
@@ -65,9 +65,9 @@ button {
   background-color: var(--color-gray--400);
   color: var(--color-gray--900);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   transition: filter 0.2s ease-in-out;
 
   &:hover {
