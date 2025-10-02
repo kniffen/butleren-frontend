@@ -41,7 +41,7 @@ export const useGuild = (): GuildHook => {
     await setGuild(data.id);
     setIsLoading(false);
     return true;
-  }, []);
+  }, [data, setGuild]);
 
   return useMemo(() => ({
     data,

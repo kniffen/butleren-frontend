@@ -1,5 +1,8 @@
 .guild-settings-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+  justify-items: start;
   gap: 2rem;
 
   &__item {
@@ -11,6 +14,12 @@
       color: var(--color-white--400);
       font-size: .875rem;
     }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
   }
 }
 
