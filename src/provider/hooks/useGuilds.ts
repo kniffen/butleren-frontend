@@ -2,26 +2,32 @@ import { useCallback, useState } from 'react';
 import { Guild } from '../../types';
 
 export interface GuildsHook {
-  guilds: Guild[];
-  updateGuilds: () => Promise<void>;
+  data: Guild[];
+  isLoading: boolean;
+  update: () => Promise<void>;
 }
 
 export const useGuilds = (): GuildsHook => {
-  const [guilds, setGuilds] = useState<Guild[]>([]);
+  const [data, setData] = useState<Guild[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const updateGuilds = useCallback(async () => {
+  const update = useCallback(async () => {
+    setIsLoading(true);
     const res = await fetch('/api/discord/guilds');
     if (!res.ok) {
-      setGuilds([]);
+      setData([]);
+      setIsLoading(false);
       return;
     }
 
     const data = await res.json() as Guild[];
-    setGuilds(data);
+    setData(data);
+    setIsLoading(false);
   }, []);
 
   return {
-    guilds,
-    updateGuilds
+    data,
+    isLoading,
+    update
   };
 };

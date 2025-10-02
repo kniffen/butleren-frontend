@@ -6,12 +6,12 @@ import './Layout.scss';
 
 export const Layout = function({ children }: {children: React.ReactNode}): JSX.Element {
   const params = useParams();
-  const { updateGuilds, guild } = useAPI();
+  const { guilds, guild } = useAPI();
   const hasUpdatedGuilds = useRef(false);
 
   useEffect(() => {
     if (!hasUpdatedGuilds.current) {
-      updateGuilds();
+      guilds.update();
 
       if (params.id) {
         guild.set(params.id);
