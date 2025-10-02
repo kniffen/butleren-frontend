@@ -1,0 +1,17 @@
+.loading-card {
+  background-color: var(--color-gray--700);
+  border-radius: 8px;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: var(--color-gray--700);
+  }
+  50% {
+    background-color: var(--color-gray--600);
+  }
+  100% {
+    background-color: var(--color-gray--700);
+  }
+}
