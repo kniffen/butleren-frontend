@@ -52,12 +52,31 @@ a {
 }
 
 input,
-select {
+select,
+button {
   background-color: var(--color-gray--900);
   color: var(--color-gray--200);
   border: none;
   border-radius: 2px;
   padding: 0.5rem 0.5rem;
+}
+
+button {
+  background-color: var(--color-gray--400);
+  color: var(--color-gray--900);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: filter 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+button[type="submit"] {
+  background-color: var(--color-turquoise--400);
 }
 
 input[type="color"] {
