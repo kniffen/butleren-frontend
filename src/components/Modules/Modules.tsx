@@ -10,7 +10,7 @@ export function Modules(): JSX.Element {
   return (
     <div className={styles.modules}>
       {modules.data.map(mod =>
-        <Card className={styles.module} title={mod.name}>
+        <Card className={styles.module} title={mod.name} key={mod.slug}>
           <Toggle
             className={styles.toggle}
             defaultChecked={mod.settings.isEnabled || mod.isLocked}

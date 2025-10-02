@@ -5,7 +5,7 @@ import type { GuildSettings } from '../../types';
 import'./GuildSettings.scss';
 
 export function GuildSettings(): ReactNode {
-  const { updateGuilds, guild } = useAPI();
+  const { guilds, guild } = useAPI();
 
     const onSubmitHandler = useCallback(async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
@@ -26,8 +26,8 @@ export function GuildSettings(): ReactNode {
     };
 
     await guild.updateSettings(settings);
-    await updateGuilds();
-  }, [guild, updateGuilds]);
+    await guilds.update();
+  }, [guild, guilds]);
 
   const onReset = useCallback(async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -37,8 +37,8 @@ export function GuildSettings(): ReactNode {
       nickname: ''
     };
     await guild.updateSettings(settings);
-    await updateGuilds();
-  }, [guild, updateGuilds]);
+    await guilds.update();
+  }, [guild, guilds]);
 
   if (!guild.data) {
     return null;

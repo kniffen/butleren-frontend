@@ -10,7 +10,7 @@ export function Commands(): JSX.Element {
   return (
     <div className="commands">
       {commands.data.map(command =>
-        <Card className="command-card" title={command.slug}>
+        <Card className="command-card" title={command.slug} key={command.slug}>
           <Toggle
             className="command-card__toggle"
             defaultChecked={command.isEnabled || command.isLocked}
