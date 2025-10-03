@@ -6,9 +6,10 @@ interface ModalProps {
   title: string;
   buttonText: string;
   children?: React.ReactNode;
+  onClose?: () => void;
 }
 
-export const Modal = function({ title, buttonText, children }: ModalProps): ReactNode {
+export const Modal = function({ title, buttonText, children, onClose }: ModalProps): ReactNode {
   const [isOpen, setIsOpen] = useState(false);
 
   return <>
@@ -16,11 +17,11 @@ export const Modal = function({ title, buttonText, children }: ModalProps): Reac
 
     {isOpen ?
       createPortal(
-      <div className="modal-background" onClick={() => { setIsOpen(false); }}>
+      <div className="modal-background" onClick={() => { setIsOpen(false); onClose?.(); }}>
         <div className="modal" onClick={(e) => { e.stopPropagation(); }}>
-          <span className="modal__close" onClick={() => { setIsOpen(false); }}>&times;</span>
+          <span className="modal__close" onClick={() => { setIsOpen(false); onClose?.(); }}>&times;</span>
           <h2 className="modal__title">{title}</h2>
-          <div className="modal__content">{children}</div>
+          {children}
         </div>
       </div>,
       document.body

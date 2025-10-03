@@ -10,12 +10,18 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 .module {
   position: relative;
 
-  .toggle {
+  &__toggle {
     position: absolute;
     top: 1rem;
     right: 1rem;
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    color: var(--color-gray--200);
   }
 }

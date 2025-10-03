@@ -9,11 +9,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-
-    label {
-      color: var(--color-white--400);
-      font-size: .875rem;
-    }
   }
 
   &__buttons {
