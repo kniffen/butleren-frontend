@@ -1,18 +1,19 @@
-import type { JSX } from 'react';
+import type { JSX, ReactNode } from 'react';
 import { useAPI } from '../../provider/hooks/useAPI';
 import { Card } from '../../components/Card/Card';
-import styles from './Modules.module.scss';
 import { Toggle } from '../../components/Toggle/Toggle';
+import { KickChannelsModal } from '../kick/KickChannelsModal/KickChannelsModal';
+import './Modules.scss';
 
 export function Modules(): JSX.Element {
   const { modules, commands } = useAPI();
 
   return (
-    <div className={styles.modules}>
+    <div className="modules">
       {modules.data.map(mod =>
-        <Card className={styles.module} title={mod.name} key={mod.slug}>
+        <Card className="module" title={mod.name} key={mod.slug}>
           <Toggle
-            className={styles.toggle}
+            className="module__toggle"
             defaultChecked={mod.settings.isEnabled || mod.isLocked}
             isLocked={mod.isLocked}
             onChange={async (checked) => {
@@ -23,9 +24,20 @@ export function Modules(): JSX.Element {
               ]);
             }}
           />
-          <p>{mod.description}</p>
+          <p className="module__description">{mod.description}</p>
+          <ModuleModals slug={mod.slug} />
         </Card>
       )}
     </div>
   );
+}
+
+function ModuleModals({ slug }: {slug: string}): ReactNode {
+  switch (slug) {
+    case 'kick': {
+      return <KickChannelsModal />;
+    }
+  }
+
+  return null;
 }

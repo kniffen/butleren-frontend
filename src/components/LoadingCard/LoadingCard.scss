@@ -2,6 +2,7 @@
   background-color: var(--color-gray--700);
   border-radius: 8px;
   animation: pulse 2.5s ease-in-out infinite;
+  cursor: wait;
 }
 
 @keyframes pulse {
