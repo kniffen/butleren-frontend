@@ -17,7 +17,7 @@ export function Command({ command }: {command: CommandState}): JSX.Element {
   return (
     <Card className="command-card" title={command.slug} key={command.slug}>
       <div className="command-card__controls">
-        <span
+        {!command.isLocked ? <span
           className="material-symbols-outlined command-card__restore"
           title="Restore to default state"
           onClick={async () => {
@@ -26,7 +26,7 @@ export function Command({ command }: {command: CommandState}): JSX.Element {
             await commands.update();
             setIsRestoring(false);
           }}
-        >reset_wrench</span>
+        >reset_wrench</span> : null}
         <Toggle
           className="command-card__toggle"
           defaultChecked={command.isEnabled || command.isLocked}
