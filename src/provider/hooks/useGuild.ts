@@ -62,7 +62,6 @@ export async function putGuildSettings(id: string, settings: GuildSettings): Pro
   );
 
   if (!res.ok) {
-    console.log('Failed to update guild settings', res.status, res.statusText);
     return false;
   }
 

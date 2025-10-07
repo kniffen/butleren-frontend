@@ -38,6 +38,7 @@ export default tseslint.config(
       "yoda":                 ["error", "always"], // require or disallow Yoda conditions
       "semi":                 ["error", "always"], // require semicolons at the end of statements
       "curly":                ["error", "all"],    // require braces around all control statements
+      "no-console":           "error",             // disallow the use of console
 
       // Typescript specific
       "@typescript-eslint/no-unused-vars":                "error", // disallow unused variables
