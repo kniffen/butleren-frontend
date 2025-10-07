@@ -4,6 +4,7 @@ import { Card } from '../../components/Card/Card';
 import { Toggle } from '../../components/Toggle/Toggle';
 import { KickChannelsModal } from '../kick/KickChannelsModal/KickChannelsModal';
 import './Modules.scss';
+import { TwitchChannelsModal } from '../twitch/TwitchChannelsModal/TwitchChannelsModal';
 
 export function Modules(): JSX.Element {
   const { modules, commands } = useAPI();
@@ -36,6 +37,9 @@ function ModuleModals({ slug }: {slug: string}): ReactNode {
   switch (slug) {
     case 'kick': {
       return <KickChannelsModal />;
+    }
+    case 'twitch': {
+      return <TwitchChannelsModal />;
     }
   }
 

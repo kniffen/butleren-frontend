@@ -14,3 +14,8 @@ export type LogEntry        = z.infer<typeof schemas.LogEntry>;
 export type KickChannel            = z.infer<typeof schemas.KickChannel>;
 export type KickNotificationConfig = z.infer<typeof schemas.KickNotificationConfig>;
 export type KickSearchResultItem   = z.infer<typeof schemas.KickSearchResultItem>;
+
+// Twitch
+export type TwitchChannel            = z.infer<typeof schemas.TwitchChannel>;
+export type TwitchNotificationConfig = z.infer<typeof schemas.TwitchNotificationConfig>;
+export type TwitchSearchResultItem   = z.infer<typeof schemas.TwitchSearchResultItem>;
