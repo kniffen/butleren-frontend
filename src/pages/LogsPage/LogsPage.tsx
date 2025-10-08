@@ -63,6 +63,8 @@ export function LogsPage(): JSX.Element {
         <div className="log-entries__header">
           <span>Timestamp</span>
           <span>Level</span>
+          <span>Service</span>
+          <span>Module</span>
           <span>Data</span>
           <span>Message</span>
         </div>
@@ -91,6 +93,8 @@ const LogEntry = memo(function LogEntry({ level, logEntry }: {level: string, log
     <div className="log-entry" data-level={logEntry.level} onClick={clickHandler}>
       <span className="log-entry__date">{logEntry.timestamp}</span>
       <span className="log-entry__level">{logEntry.level}</span>
+      <span className="log-entry__service">{logEntry.service}</span>
+      <span className="log-entry__module">{logEntry.module}</span>
       <span>{logEntry.rest ? '📦' : ''}</span>
       <span className="log-entry__message">{logEntry.message}</span>
       {displayRest ? <pre className="log-entry__data">{JSON.stringify(logEntry.rest, null, 2)}</pre> : null}
