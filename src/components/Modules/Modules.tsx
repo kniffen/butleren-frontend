@@ -3,8 +3,9 @@ import { useAPI } from '../../provider/hooks/useAPI';
 import { Card } from '../../components/Card/Card';
 import { Toggle } from '../../components/Toggle/Toggle';
 import { KickChannelsModal } from '../kick/KickChannelsModal/KickChannelsModal';
-import './Modules.scss';
 import { TwitchChannelsModal } from '../twitch/TwitchChannelsModal/TwitchChannelsModal';
+import { SpotifyShowsModal } from '../spotify/SpotifyShowsModal/SpotifyShowsModal';
+import './Modules.scss';
 
 export function Modules(): JSX.Element {
   const { modules, commands } = useAPI();
@@ -40,6 +41,9 @@ function ModuleModals({ slug }: {slug: string}): ReactNode {
     }
     case 'twitch': {
       return <TwitchChannelsModal />;
+    }
+    case 'spotify': {
+      return <SpotifyShowsModal />;
     }
   }
 
