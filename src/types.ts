@@ -19,3 +19,8 @@ export type KickSearchResultItem   = z.infer<typeof schemas.KickSearchResultItem
 export type TwitchChannel            = z.infer<typeof schemas.TwitchChannel>;
 export type TwitchNotificationConfig = z.infer<typeof schemas.TwitchNotificationConfig>;
 export type TwitchSearchResultItem   = z.infer<typeof schemas.TwitchSearchResultItem>;
+
+// Spotify
+export type SpotifyShow               = z.infer<typeof schemas.SpotifyShow>;
+export type SpotifyNotificationConfig = z.infer<typeof schemas.SpotifyNotificationConfig>;
+export type SpotifySearchResultItem   = z.infer<typeof schemas.SpotifySearchResultItem>;

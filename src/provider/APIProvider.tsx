@@ -7,6 +7,7 @@ import { useLogs } from './hooks/useLogs';
 import { useUsers } from './hooks/useUsers';
 import { useKick } from './hooks/useKick';
 import { useTwitch } from './hooks/useTwitch';
+import { useSpotify } from './hooks/useSpotify';
 
 export interface APIProviderState {
   guilds:   ReturnType<typeof useGuilds>;
@@ -17,6 +18,7 @@ export interface APIProviderState {
   logs:     ReturnType<typeof useLogs>;
   kick:     ReturnType<typeof useKick>;
   twitch:   ReturnType<typeof useTwitch>;
+  spotify:  ReturnType<typeof useSpotify>;
 }
 
 export const APIProviderContext = createContext<APIProviderState | null>(null);
@@ -30,6 +32,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
   const logs = useLogs();
   const kick = useKick(guild.data);
   const twitch = useTwitch(guild.data);
+  const spotify = useSpotify(guild.data);
 
   return (
     <APIProviderContext.Provider value={{
@@ -41,6 +44,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
       logs,
       kick,
       twitch,
+      spotify,
     }}>
       {children}
     </APIProviderContext.Provider>
