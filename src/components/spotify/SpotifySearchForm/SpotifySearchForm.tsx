@@ -33,7 +33,7 @@ export function SpotifySearchForm(): JSX.Element {
         setNotificationConfig({
           showId:                curatedResults[0].showId,
           notificationChannelId: notificationConfig?.notificationChannelId || '',
-          notificationRoleId:    notificationConfig?.notificationRoleId,
+          notificationRoleId:    notificationConfig?.notificationRoleId    || null,
         });
         setIsSearching(false);
       });
@@ -78,7 +78,7 @@ const SpotifySearchResults = function(): JSX.Element {
             setNotificationConfig({
               showId:                result.showId,
               notificationChannelId: notificationConfig?.notificationChannelId || '',
-              notificationRoleId:    notificationConfig?.notificationRoleId,
+              notificationRoleId:    notificationConfig?.notificationRoleId    || null,
             });
           }}
         >

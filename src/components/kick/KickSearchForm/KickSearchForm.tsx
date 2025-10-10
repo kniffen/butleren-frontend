@@ -26,9 +26,9 @@ export function KickSearchForm(): JSX.Element {
       kick.getSearch(query.toString()).then((results) => {
         setSearchResults(results);
         setNotificationConfig({
-          broadcasterUserId:     results[0]?.broadcaster_user_id || 0,
+          broadcasterUserId:     results[0]?.broadcaster_user_id           || 0,
           notificationChannelId: notificationConfig?.notificationChannelId || '',
-          notificationRoleId:    notificationConfig?.notificationRoleId,
+          notificationRoleId:    notificationConfig?.notificationRoleId    || null,
         });
         setIsSearching(false);
       });
@@ -71,7 +71,7 @@ const KickSearchResults = function(): JSX.Element {
             setNotificationConfig({
               broadcasterUserId:     result.broadcaster_user_id,
               notificationChannelId: notificationConfig?.notificationChannelId || '',
-              notificationRoleId:    notificationConfig?.notificationRoleId,
+              notificationRoleId:    notificationConfig?.notificationRoleId    || null,
             });
           }}
         >

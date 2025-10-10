@@ -21,8 +21,8 @@ export function GuildSettings(): ReactNode {
 
     const formData = new FormData(form);
     const settings: GuildSettings = {
-      color:    formData.get('color')?.toString() || '#19D8B4',
-      nickname: formData.get('nickname')?.toString(),
+      color:    formData.get('color')?.toString()    || '#19D8B4',
+      nickname: formData.get('nickname')?.toString() || null,
     };
 
     await guild.updateSettings(settings);

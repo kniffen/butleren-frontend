@@ -27,7 +27,7 @@ export function KickChannelForm(): JSX.Element {
     const newNotificationConfig: KickNotificationConfig = {
       broadcasterUserId:     Number(formData.get('broadcaster')),
       notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString(),
+      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
     };
 
     await kick.postChannel(newNotificationConfig);

@@ -25,9 +25,9 @@ export function SpotifyShowForm(): JSX.Element {
 
     const formData = new FormData(form);
     const newNotificationConfig: SpotifyNotificationConfig = {
-      showId:                formData.get('show')?.toString() || '',
+      showId:                formData.get('show')?.toString()                 || '',
       notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString(),
+      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
     };
 
     await spotify.postShow(newNotificationConfig);
