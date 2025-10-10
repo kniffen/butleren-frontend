@@ -25,9 +25,9 @@ export function TwitchChannelForm(): JSX.Element {
 
     const formData = new FormData(form);
     const newNotificationConfig: TwitchNotificationConfig = {
-      id:                    formData.get('broadcaster')?.toString() || '',
+      id:                    formData.get('broadcaster')?.toString()          || '',
       notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString(),
+      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
     };
 
     await twitch.postChannel(newNotificationConfig);

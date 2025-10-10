@@ -33,7 +33,7 @@ export function TwitchSearchForm(): JSX.Element {
         setNotificationConfig({
           id:                    curatedResults[0].id,
           notificationChannelId: notificationConfig?.notificationChannelId || '',
-          notificationRoleId:    notificationConfig?.notificationRoleId,
+          notificationRoleId:    notificationConfig?.notificationRoleId    || null,
         });
         setIsSearching(false);
       });
@@ -78,7 +78,7 @@ const TwitchSearchResults = function(): JSX.Element {
             setNotificationConfig({
               id:                    result.id,
               notificationChannelId: notificationConfig?.notificationChannelId || '',
-              notificationRoleId:    notificationConfig?.notificationRoleId,
+              notificationRoleId:    notificationConfig?.notificationRoleId    || null,
             });
           }}
         >
