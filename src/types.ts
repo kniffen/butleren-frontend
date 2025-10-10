@@ -20,6 +20,11 @@ export type TwitchChannel            = z.infer<typeof schemas.TwitchChannel>;
 export type TwitchNotificationConfig = z.infer<typeof schemas.TwitchNotificationConfig>;
 export type TwitchSearchResultItem   = z.infer<typeof schemas.TwitchSearchResultItem>;
 
+// YouTube
+export type YouTubeChannel            = z.infer<typeof schemas.YouTubeChannel>;
+export type YouTubeNotificationConfig = z.infer<typeof schemas.YouTubeNotificationConfig>;
+export type YouTubeSearchResultItem   = z.infer<typeof schemas.YouTubeSearchResultItem>;
+
 // Spotify
 export type SpotifyShow               = z.infer<typeof schemas.SpotifyShow>;
 export type SpotifyNotificationConfig = z.infer<typeof schemas.SpotifyNotificationConfig>;

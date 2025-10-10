@@ -5,11 +5,12 @@ import styles from './Toggle.module.scss';
 export interface ToggleProps {
   className?: string;
   defaultChecked: boolean;
-  isLocked: boolean;
-  onChange: (value: boolean) => void;
+  name?: string;
+  isLocked?: boolean;
+  onChange?: (value: boolean) => void;
 }
 
-export function Toggle({ className, defaultChecked, isLocked, onChange }: ToggleProps): JSX.Element {
+export function Toggle({ className, defaultChecked, name, isLocked, onChange }: ToggleProps): JSX.Element {
   const [checked, setChecked] = useState(defaultChecked);
   const [checking, setChecking] = useState(false);
   const id = useMemo(() => `toggle-${crypto.randomUUID()}`, []);
@@ -26,6 +27,7 @@ export function Toggle({ className, defaultChecked, isLocked, onChange }: Toggle
         className={styles.toggle}
         type="checkbox"
         checked={checked}
+        name={name}
         onChange={async (e) => {
           if (isLocked || checking) {
             return;
@@ -33,7 +35,9 @@ export function Toggle({ className, defaultChecked, isLocked, onChange }: Toggle
 
           setChecking(true);
           setChecked(e.target.checked);
-          await onChange(e.target.checked);
+          if (onChange) {
+            await onChange(e.target.checked);
+          }
           setChecking(false);
           // TODO: handle request failing
         }}

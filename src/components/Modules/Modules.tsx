@@ -5,6 +5,7 @@ import { Toggle } from '../../components/Toggle/Toggle';
 import { KickChannelsModal } from '../kick/KickChannelsModal/KickChannelsModal';
 import { TwitchChannelsModal } from '../twitch/TwitchChannelsModal/TwitchChannelsModal';
 import { SpotifyShowsModal } from '../spotify/SpotifyShowsModal/SpotifyShowsModal';
+import { YouTubeChannelsModal } from '../youtube/YouTubeChannelsModal/YouTubeChannelsModal';
 import './Modules.scss';
 
 export function Modules(): JSX.Element {
@@ -44,6 +45,9 @@ function ModuleModals({ slug }: {slug: string}): ReactNode {
     }
     case 'spotify': {
       return <SpotifyShowsModal />;
+    }
+    case 'youtube': {
+      return <YouTubeChannelsModal />;
     }
   }
 
