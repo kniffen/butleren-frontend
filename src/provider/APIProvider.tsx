@@ -8,6 +8,7 @@ import { useUsers } from './hooks/useUsers';
 import { useKick } from './hooks/useKick';
 import { useTwitch } from './hooks/useTwitch';
 import { useSpotify } from './hooks/useSpotify';
+import { useYouTube } from './hooks/useYouTube';
 
 export interface APIProviderState {
   guilds:   ReturnType<typeof useGuilds>;
@@ -19,6 +20,7 @@ export interface APIProviderState {
   kick:     ReturnType<typeof useKick>;
   twitch:   ReturnType<typeof useTwitch>;
   spotify:  ReturnType<typeof useSpotify>;
+  youtube:  ReturnType<typeof useYouTube>;
 }
 
 export const APIProviderContext = createContext<APIProviderState | null>(null);
@@ -33,6 +35,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
   const kick = useKick(guild.data);
   const twitch = useTwitch(guild.data);
   const spotify = useSpotify(guild.data);
+  const youtube = useYouTube(guild.data);
 
   return (
     <APIProviderContext.Provider value={{
@@ -45,6 +48,7 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
       kick,
       twitch,
       spotify,
+      youtube,
     }}>
       {children}
     </APIProviderContext.Provider>
