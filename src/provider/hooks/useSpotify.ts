@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
-import { Guild, SpotifyShow, SpotifyNotificationConfig, SpotifySearchResultItem } from '../../types';
+import { Guild, SpotifyShow, SpotifyNotificationConfig } from '../../types';
 
 export interface SpotifyHook {
   shows: SpotifyShow[];
   isLoading: boolean;
   getShows: () => Promise<SpotifyShow[]>;
-  getSearch: (query: string) => Promise<SpotifySearchResultItem[]>;
   updateShows: () => Promise<void>;
   postShow: (requestBody: SpotifyNotificationConfig) => Promise<boolean>;
   deleteShow: (id: string) => Promise<boolean>;
@@ -26,21 +25,6 @@ export const useSpotify = (guild: Guild | null): SpotifyHook => {
     }
 
     const data = await res.json() as SpotifyShow[];
-    return data;
-  }, [guild]);
-
-  const getSearch = useCallback(async (query: string): Promise<SpotifySearchResultItem[]> => {
-    if (!guild) {
-      return [];
-    }
-
-    const url = `/api/spotify/search?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-      return [];
-    }
-
-    const data = await res.json() as SpotifySearchResultItem[];
     return data;
   }, [guild]);
 
@@ -89,7 +73,6 @@ export const useSpotify = (guild: Guild | null): SpotifyHook => {
     shows,
     isLoading,
     getShows,
-    getSearch,
     updateShows,
     postShow,
     deleteShow

@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
-import { Guild, TwitchChannel, TwitchNotificationConfig, TwitchSearchResultItem } from '../../types';
+import { Guild, TwitchChannel, TwitchNotificationConfig } from '../../types';
 
 export interface TwitchHook {
   channels: TwitchChannel[];
   isLoading: boolean;
   getChannels: () => Promise<TwitchChannel[]>;
-  getSearch: (query: string) => Promise<TwitchSearchResultItem[]>;
   updateChannels: () => Promise<void>;
   postChannel: (requestBody: TwitchNotificationConfig) => Promise<boolean>;
   deleteChannel: (id: string) => Promise<boolean>;
@@ -26,21 +25,6 @@ export const useTwitch = (guild: Guild | null): TwitchHook => {
     }
 
     const data = await res.json() as TwitchChannel[];
-    return data;
-  }, [guild]);
-
-  const getSearch = useCallback(async (query: string): Promise<TwitchSearchResultItem[]> => {
-    if (!guild) {
-      return [];
-    }
-
-    const url = `/api/twitch/search?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-      return [];
-    }
-
-    const data = await res.json() as TwitchSearchResultItem[];
     return data;
   }, [guild]);
 
@@ -89,7 +73,6 @@ export const useTwitch = (guild: Guild | null): TwitchHook => {
     channels,
     isLoading,
     getChannels,
-    getSearch,
     updateChannels,
     postChannel,
     deleteChannel

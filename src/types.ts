@@ -9,23 +9,20 @@ export type Command         = z.infer<typeof schemas.Command>;
 export type CommandSettings = z.infer<typeof schemas.CommandSettings>;
 export type User            = z.infer<typeof schemas.User>;
 export type LogEntry        = z.infer<typeof schemas.LogEntry>;
+export type SearchResult    = z.infer<typeof schemas.SearchResult>;
 
 // Kick
 export type KickChannel            = z.infer<typeof schemas.KickChannel>;
 export type KickNotificationConfig = z.infer<typeof schemas.KickNotificationConfig>;
-export type KickSearchResultItem   = z.infer<typeof schemas.KickSearchResultItem>;
 
 // Twitch
 export type TwitchChannel            = z.infer<typeof schemas.TwitchChannel>;
 export type TwitchNotificationConfig = z.infer<typeof schemas.TwitchNotificationConfig>;
-export type TwitchSearchResultItem   = z.infer<typeof schemas.TwitchSearchResultItem>;
 
 // YouTube
 export type YouTubeChannel            = z.infer<typeof schemas.YouTubeChannel>;
 export type YouTubeNotificationConfig = z.infer<typeof schemas.YouTubeNotificationConfig>;
-export type YouTubeSearchResultItem   = z.infer<typeof schemas.YouTubeSearchResultItem>;
 
 // Spotify
 export type SpotifyShow               = z.infer<typeof schemas.SpotifyShow>;
 export type SpotifyNotificationConfig = z.infer<typeof schemas.SpotifyNotificationConfig>;
-export type SpotifySearchResultItem   = z.infer<typeof schemas.SpotifySearchResultItem>;

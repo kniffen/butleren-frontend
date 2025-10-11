@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
-import { Guild, YouTubeChannel, YouTubeNotificationConfig, YouTubeSearchResultItem } from '../../types';
+import { Guild, YouTubeChannel, YouTubeNotificationConfig } from '../../types';
 
 export interface YouTubeHook {
   channels: YouTubeChannel[];
   isLoading: boolean;
   getChannels: () => Promise<YouTubeChannel[]>;
-  getSearch: (query: string) => Promise<YouTubeSearchResultItem[]>;
   updateChannels: () => Promise<void>;
   postChannel: (requestBody: YouTubeNotificationConfig) => Promise<boolean>;
   deleteChannel: (id: string) => Promise<boolean>;
@@ -26,21 +25,6 @@ export const useYouTube = (guild: Guild | null): YouTubeHook => {
     }
 
     const data = await res.json() as YouTubeChannel[];
-    return data;
-  }, [guild]);
-
-  const getSearch = useCallback(async (query: string): Promise<YouTubeSearchResultItem[]> => {
-    if (!guild) {
-      return [];
-    }
-
-    const url = `/api/youtube/search?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-      return [];
-    }
-
-    const data = await res.json() as YouTubeSearchResultItem[];
     return data;
   }, [guild]);
 
@@ -89,7 +73,6 @@ export const useYouTube = (guild: Guild | null): YouTubeHook => {
     channels,
     isLoading,
     getChannels,
-    getSearch,
     updateChannels,
     postChannel,
     deleteChannel
