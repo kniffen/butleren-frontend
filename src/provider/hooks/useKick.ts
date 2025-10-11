@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
-import { Guild, KickChannel, KickNotificationConfig, KickSearchResultItem } from '../../types';
+import { Guild, KickChannel, KickNotificationConfig } from '../../types';
 
 export interface KickHook {
   channels: KickChannel[];
   isLoading: boolean;
   getChannels: () => Promise<KickChannel[]>;
-  getSearch: (query: string) => Promise<KickSearchResultItem[]>;
   updateChannels: () => Promise<void>;
   postChannel: (requestBody: KickNotificationConfig) => Promise<boolean>;
   deleteChannel: (broadcasterUserId: number) => Promise<boolean>;
@@ -26,21 +25,6 @@ export const useKick = (guild: Guild | null): KickHook => {
     }
 
     const data = await res.json() as KickChannel[];
-    return data;
-  }, [guild]);
-
-  const getSearch = useCallback(async (query: string): Promise<KickSearchResultItem[]> => {
-    if (!guild) {
-      return [];
-    }
-
-    const url = `/api/kick/search?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-      return [];
-    }
-
-    const data = await res.json() as KickSearchResultItem[];
     return data;
   }, [guild]);
 
@@ -89,7 +73,6 @@ export const useKick = (guild: Guild | null): KickHook => {
     channels,
     isLoading,
     getChannels,
-    getSearch,
     updateChannels,
     postChannel,
     deleteChannel

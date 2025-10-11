@@ -1,8 +1,8 @@
 import { createContext, useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { useAPI } from '../../../provider/hooks/useAPI';
-import type { YouTubeChannel, YouTubeNotificationConfig, YouTubeSearchResultItem } from '../../../types';
-import { YouTubeSearchForm } from '../YouTubeSearchForm/YouTubeSearchForm';
+import type { YouTubeChannel, YouTubeNotificationConfig } from '../../../types';
+import { SearchForm } from '../../SearchForm/SearchForm';
 import { YouTubeChannelForm } from '../YouTubeChannelForm/YouTubeChannelForm';
 import { YouTubeChannels } from '../YouTubeChannels/YouTubeChannels';
 import './YouTubeChannelsModal.scss';
@@ -12,8 +12,6 @@ export interface YouTubeProviderState {
   setYouTubeChannel: (channel: YouTubeChannel | null) => void;
   notificationConfig: YouTubeNotificationConfig | null;
   setNotificationConfig: (config: YouTubeNotificationConfig | null) => void;
-  searchResults: YouTubeSearchResultItem[];
-  setSearchResults: (results: YouTubeSearchResultItem[]) => void;
 }
 
 export const YouTubeChannelsModalContext = createContext<YouTubeProviderState | null>(null);
@@ -23,7 +21,6 @@ export function YouTubeChannelsModal(): JSX.Element {
   const [youtubeChannel, setYouTubeChannel] = useState<YouTubeChannel| null>(null);
   const [notificationConfig, setNotificationConfig] = useState<YouTubeNotificationConfig | null>(null);
   const hasInitialized = useRef(false);
-  const [searchResults, setSearchResults] = useState<YouTubeSearchResultItem[]>([]);
 
   const title = useMemo(() => {
     if (youtubeChannel) {
@@ -50,13 +47,18 @@ export function YouTubeChannelsModal(): JSX.Element {
         setYouTubeChannel,
         notificationConfig,
         setNotificationConfig,
-        searchResults,
-        setSearchResults,
       }}>
         <Modal title={title} buttonText="Manage channels" onClose={() => {setYouTubeChannel(null); setNotificationConfig(null);}}>
           {notificationConfig
             ? <div className="youtube-channel-form-container">
-                <YouTubeSearchForm />
+                <SearchForm
+                  initialQuery={youtubeChannel?.name}
+                  service='youtube'
+                  onSelect={(result) => setNotificationConfig({
+                    ...notificationConfig,
+                    channelId: result.id,
+                  })}
+                />
                 <hr />
                 <YouTubeChannelForm />
               </div>

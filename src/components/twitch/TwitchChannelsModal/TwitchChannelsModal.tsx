@@ -1,8 +1,8 @@
 import { createContext, useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { useAPI } from '../../../provider/hooks/useAPI';
-import type { TwitchChannel, TwitchNotificationConfig, TwitchSearchResultItem } from '../../../types';
-import { TwitchSearchForm } from '../TwitchSearchForm/TwitchSearchForm';
+import type { TwitchChannel, TwitchNotificationConfig } from '../../../types';
+import { SearchForm } from '../../SearchForm/SearchForm';
 import { TwitchChannelForm } from '../TwitchChannelForm/TwitchChannelForm';
 import { TwitchChannels } from '../TwitchChannels/TwitchChannels';
 import './TwitchChannelsModal.scss';
@@ -12,8 +12,6 @@ export interface TwitchProviderState {
   setTwitchChannel: (channel: TwitchChannel | null) => void;
   notificationConfig: TwitchNotificationConfig | null;
   setNotificationConfig: (config: TwitchNotificationConfig | null) => void;
-  searchResults: TwitchSearchResultItem[];
-  setSearchResults: (results: TwitchSearchResultItem[]) => void;
 }
 
 export const TwitchChannelsModalContext = createContext<TwitchProviderState | null>(null);
@@ -23,7 +21,6 @@ export function TwitchChannelsModal(): JSX.Element {
   const [twitchChannel, setTwitchChannel] = useState<TwitchChannel| null>(null);
   const [notificationConfig, setNotificationConfig] = useState<TwitchNotificationConfig | null>(null);
   const hasInitialized = useRef(false);
-  const [searchResults, setSearchResults] = useState<TwitchSearchResultItem[]>([]);
 
   const title = useMemo(() => {
     if (twitchChannel) {
@@ -50,13 +47,18 @@ export function TwitchChannelsModal(): JSX.Element {
         setTwitchChannel,
         notificationConfig,
         setNotificationConfig,
-        searchResults,
-        setSearchResults,
       }}>
         <Modal title={title} buttonText="Manage channels" onClose={() => {setTwitchChannel(null); setNotificationConfig(null);}}>
           {notificationConfig
             ? <div className="twitch-channel-form-container">
-                <TwitchSearchForm />
+                <SearchForm
+                  initialQuery={twitchChannel?.name}
+                  service="twitch"
+                  onSelect={(result) => setNotificationConfig({
+                    ...notificationConfig,
+                    channelId: result.id,
+                  })}
+                />
                 <hr />
                 <TwitchChannelForm />
               </div>

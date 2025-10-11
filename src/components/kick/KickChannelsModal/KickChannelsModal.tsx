@@ -1,10 +1,10 @@
 import { createContext, useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { useAPI } from '../../../provider/hooks/useAPI';
-import type { KickChannel, KickNotificationConfig, KickSearchResultItem } from '../../../types';
+import type { KickChannel, KickNotificationConfig } from '../../../types';
 import { KickChannelForm } from '../KickChannelForm/KickChannelForm';
 import { KickChannels } from '../KickChannels/KickChannels';
-import { KickSearchForm } from '../KickSearchForm/KickSearchForm';
+import { SearchForm } from '../../SearchForm/SearchForm';
 import './KickChannelsModal.scss';
 
 export interface KickProviderState {
@@ -12,8 +12,6 @@ export interface KickProviderState {
   setKickChannel: (channel: KickChannel | null) => void;
   notificationConfig: KickNotificationConfig | null;
   setNotificationConfig: (config: KickNotificationConfig | null) => void;
-  searchResults: KickSearchResultItem[];
-  setSearchResults: (results: KickSearchResultItem[]) => void;
 }
 
 export const KickChannelsModalContext = createContext<KickProviderState | null>(null);
@@ -23,7 +21,6 @@ export function KickChannelsModal(): JSX.Element {
   const [kickChannel, setKickChannel] = useState<KickChannel| null>(null);
   const [notificationConfig, setNotificationConfig] = useState<KickNotificationConfig | null>(null);
   const hasInitialized = useRef(false);
-  const [searchResults, setSearchResults] = useState<KickSearchResultItem[]>([]);
 
   const title = useMemo(() => {
     if (kickChannel) {
@@ -50,13 +47,18 @@ export function KickChannelsModal(): JSX.Element {
         setKickChannel,
         notificationConfig,
         setNotificationConfig,
-        searchResults,
-        setSearchResults,
       }}>
         <Modal title={title} buttonText="Manage channels" onClose={() => {setKickChannel(null); setNotificationConfig(null);}}>
           {notificationConfig
             ? <div className="kick-channel-form-container">
-                <KickSearchForm />
+                <SearchForm
+                  initialQuery={kickChannel?.name}
+                  service='kick'
+                  onSelect={(result) => setNotificationConfig({
+                    ...notificationConfig,
+                    broadcasterUserId: Number(result.id),
+                  })}
+                />
                 <hr />
                 <KickChannelForm />
               </div>
