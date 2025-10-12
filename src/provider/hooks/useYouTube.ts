@@ -25,6 +25,8 @@ export const useYouTube = (guild: Guild | null): YouTubeHook => {
     }
 
     const data = await res.json() as YouTubeChannel[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     return data;
   }, [guild]);
 

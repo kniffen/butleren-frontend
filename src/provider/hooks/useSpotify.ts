@@ -25,6 +25,8 @@ export const useSpotify = (guild: Guild | null): SpotifyHook => {
     }
 
     const data = await res.json() as SpotifyShow[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     return data;
   }, [guild]);
 
