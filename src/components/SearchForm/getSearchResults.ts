@@ -1,8 +1,11 @@
 import { SearchResult } from '../../types';
 
   export const getSearchResults = async function (service: string, query: string): Promise<SearchResult[]> {
-    const url = `/api/search/${service}?query=${encodeURIComponent(query)}`;
-    const res = await fetch(url);
+    const searchParams = new URLSearchParams();
+    searchParams.append('query', query);
+    const url = `/api/search/${service}?${searchParams.toString()}`;
+
+    const res = await fetch(url.toString());
     if (!res.ok) {
       return [];
     }
