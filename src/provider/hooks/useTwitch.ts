@@ -25,6 +25,8 @@ export const useTwitch = (guild: Guild | null): TwitchHook => {
     }
 
     const data = await res.json() as TwitchChannel[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     return data;
   }, [guild]);
 

@@ -25,6 +25,8 @@ export const useKick = (guild: Guild | null): KickHook => {
     }
 
     const data = await res.json() as KickChannel[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     return data;
   }, [guild]);
 
