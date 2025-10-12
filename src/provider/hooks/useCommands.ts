@@ -27,6 +27,8 @@ export const useCommands = (guild: Guild | null): CommandsHook => {
     }
 
     const data = await res.json() as Command[];
+    data.sort((a, b) => a.slug.localeCompare(b.slug));
+
     setData(data);
     setIsLoading(false);
   }, [guild]);

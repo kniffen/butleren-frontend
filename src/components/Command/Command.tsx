@@ -15,7 +15,7 @@ export function Command({ command }: {command: CommandState}): JSX.Element {
   }
 
   return (
-    <Card className="command-card" title={command.slug} key={command.slug}>
+    <Card className="command-card" title={`/${command.slug}`} key={command.slug}>
       <div className="command-card__controls">
         {!command.isLocked ? <span
           className="material-symbols-outlined command-card__restore"

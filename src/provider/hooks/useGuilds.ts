@@ -21,6 +21,8 @@ export const useGuilds = (): GuildsHook => {
     }
 
     const data = await res.json() as Guild[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     setData(data);
     setIsLoading(false);
   }, []);

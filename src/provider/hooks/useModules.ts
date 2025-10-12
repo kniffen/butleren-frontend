@@ -26,6 +26,8 @@ export const useModules = (guild: Guild | null): ModulesHook => {
     }
 
     const data = await res.json() as Module[];
+    data.sort((a, b) => a.name.localeCompare(b.name));
+
     setModules(data);
     setIsLoading(false);
   }, [guild]);
