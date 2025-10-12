@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import type {  TwitchNotificationConfig } from '../../../types';
+import { schemas } from '@kniffen/butleren-api-contract';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { TwitchChannelsModalContext } from '../TwitchChannelsModal/TwitchChannelsModal';
 import './TwitchChannelForm.scss';
@@ -24,13 +24,18 @@ export function TwitchChannelForm(): JSX.Element {
     }
 
     const formData = new FormData(form);
-    const newNotificationConfig: TwitchNotificationConfig = {
-      id:                    formData.get('broadcaster')?.toString()          || '',
-      notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
-    };
+    const newNotificationConfig = schemas.TwitchNotificationConfig.safeParse({
+      id:                    formData.get('broadcaster'),
+      notificationChannelId: formData.get('notification-channel'),
+      notificationRoleId:    formData.get('notification-role'),
+    });
 
-    await twitch.postChannel(newNotificationConfig);
+    if (!newNotificationConfig.success) {
+      setIsSaving(false);
+      return;
+    }
+
+    await twitch.postChannel(newNotificationConfig.data);
     await twitch.updateChannels();
     setTwitchChannel(null);
     setNotificationConfig(null);
@@ -48,11 +53,11 @@ export function TwitchChannelForm(): JSX.Element {
 
   return <form className="twitch-channel-form" onSubmit={onSubmitHandler}>
     <div className="twitch-channel-form__items">
-      <input name="broadcaster" type="text" value={notificationConfig?.id} readOnly hidden />
+      <input name="broadcaster" type="text" value={notificationConfig?.id} readOnly hidden required/>
 
       <div className="twitch-channel-form__item">
         <label>Notification channel</label>
-        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId}>
+        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId} required>
           {guild.data?.channels
             ?.filter((channel) => 'TEXT' === channel.type || 'ANNOUNCEMENT' === channel.type)
              .map((channel) => <option key={channel.id} value={channel.id}>{channel.name}</option>)
