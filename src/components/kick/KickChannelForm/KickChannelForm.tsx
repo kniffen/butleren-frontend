@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import type {  KickNotificationConfig } from '../../../types';
+import { schemas } from '@kniffen/butleren-api-contract';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { KickChannelsModalContext } from '../KickChannelsModal/KickChannelsModal';
 import './KickChannelForm.scss';
@@ -24,13 +24,18 @@ export function KickChannelForm(): JSX.Element {
     }
 
     const formData = new FormData(form);
-    const newNotificationConfig: KickNotificationConfig = {
+    const newNotificationConfig = schemas.KickNotificationConfig.safeParse({
       broadcasterUserId:     Number(formData.get('broadcaster')),
-      notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
-    };
+      notificationChannelId: formData.get('notification-channel')?.toString(),
+      notificationRoleId:    formData.get('notification-role')?.toString(),
+    });
 
-    await kick.postChannel(newNotificationConfig);
+    if (!newNotificationConfig.success) {
+      setIsSaving(false);
+      return;
+    }
+
+    await kick.postChannel(newNotificationConfig.data);
     await kick.updateChannels();
     setKickChannel(null);
     setNotificationConfig(null);
@@ -48,11 +53,11 @@ export function KickChannelForm(): JSX.Element {
 
   return <form className="kick-channel-form" onSubmit={onSubmitHandler}>
     <div className="kick-channel-form__items">
-      <input name="broadcaster" type="text" value={notificationConfig?.broadcasterUserId.toString()} readOnly hidden />
+      <input name="broadcaster" type="text" value={notificationConfig?.broadcasterUserId} readOnly hidden required/>
 
       <div className="kick-channel-form__item">
         <label>Notification channel</label>
-        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId}>
+        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId} required>
           {guild.data?.channels
             ?.filter((channel) => 'TEXT' === channel.type || 'ANNOUNCEMENT' === channel.type)
              .map((channel) => <option key={channel.id} value={channel.id}>{channel.name}</option>)

@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import type {  SpotifyNotificationConfig } from '../../../types';
+import { schemas } from '@kniffen/butleren-api-contract';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { SpotifyShowsModalContext } from '../SpotifyShowsModal/SpotifyShowsModal';
 import './SpotifyShowForm.scss';
@@ -24,13 +24,18 @@ export function SpotifyShowForm(): JSX.Element {
     }
 
     const formData = new FormData(form);
-    const newNotificationConfig: SpotifyNotificationConfig = {
-      showId:                formData.get('show')?.toString()                 || '',
-      notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString()    || null,
-    };
+    const newNotificationConfig = schemas.SpotifyNotificationConfig.safeParse({
+      showId:                formData.get('show'),
+      notificationChannelId: formData.get('notification-channel'),
+      notificationRoleId:    formData.get('notification-role'),
+    });
 
-    await spotify.postShow(newNotificationConfig);
+    if (!newNotificationConfig.success) {
+      setIsSaving(false);
+      return;
+    }
+
+    await spotify.postShow(newNotificationConfig.data);
     await spotify.updateShows();
     setSpotifyShow(null);
     setNotificationConfig(null);
@@ -48,11 +53,11 @@ export function SpotifyShowForm(): JSX.Element {
 
   return <form className="spotify-show-form" onSubmit={onSubmitHandler}>
     <div className="spotify-show-form__items">
-      <input name="show"type="text" value={notificationConfig?.showId} readOnly hidden />
+      <input name="show"type="text" value={notificationConfig?.showId} readOnly hidden required/>
 
       <div className="spotify-show-form__item">
         <label>Notification channel</label>
-        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId}>
+        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId} required>
           {guild.data?.channels
             ?.filter((channel) => 'TEXT' === channel.type || 'ANNOUNCEMENT' === channel.type)
              .map((channel) => <option key={channel.id} value={channel.id}>{channel.name}</option>)

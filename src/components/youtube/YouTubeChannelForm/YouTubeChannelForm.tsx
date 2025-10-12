@@ -1,9 +1,9 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import type {  YouTubeNotificationConfig } from '../../../types';
+import { schemas } from '@kniffen/butleren-api-contract';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { YouTubeChannelsModalContext } from '../YouTubeChannelsModal/YouTubeChannelsModal';
-import './YouTubeChannelForm.scss';
 import { Toggle } from '../../Toggle/Toggle';
+import './YouTubeChannelForm.scss';
 
 export function YouTubeChannelForm(): JSX.Element {
   const { guild, youtube } = useAPI();
@@ -25,14 +25,19 @@ export function YouTubeChannelForm(): JSX.Element {
     }
 
     const formData = new FormData(form);
-    const newNotificationConfig: YouTubeNotificationConfig = {
-      channelId:             formData.get('channel')?.toString() || '',
+    const newNotificationConfig = schemas.YouTubeNotificationConfig.safeParse({
+      channelId:             formData.get('channel'),
       includeLiveStreams:    'on' === formData.get('include-live'),
-      notificationChannelId: formData.get('notification-channel')?.toString() || '',
-      notificationRoleId:    formData.get('notification-role')?.toString() || null,
-    };
+      notificationChannelId: formData.get('notification-channel'),
+      notificationRoleId:    formData.get('notification-role'),
+    });
 
-    await youtube.postChannel(newNotificationConfig);
+    if (!newNotificationConfig.success) {
+      setIsSaving(false);
+      return;
+    }
+
+    await youtube.postChannel(newNotificationConfig.data);
     await youtube.updateChannels();
     setYouTubeChannel(null);
     setNotificationConfig(null);
@@ -50,11 +55,11 @@ export function YouTubeChannelForm(): JSX.Element {
 
   return <form className="youtube-channel-form" onSubmit={onSubmitHandler}>
     <div className="youtube-channel-form__items">
-      <input name="channel" type="text" value={notificationConfig?.channelId} readOnly hidden />
+      <input name="channel" type="text" value={notificationConfig?.channelId} readOnly hidden required/>
 
       <div className="youtube-channel-form__item">
         <label>Notification channel</label>
-        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId}>
+        <select name="notification-channel" defaultValue={notificationConfig?.notificationChannelId} required>
           {guild.data?.channels
             ?.filter((channel) => 'TEXT' === channel.type || 'ANNOUNCEMENT' === channel.type)
              .map((channel) => <option key={channel.id} value={channel.id}>{channel.name}</option>)
