@@ -18,7 +18,7 @@
 .toggleLabel {
   position: relative;
   display: block;
-  background-color: var(--color-gray--500);
+  background-color: var(--color-gray--400);
   width: 2em;
   height: 1em;
   cursor: pointer;
@@ -27,7 +27,7 @@
 .toggleLabel::before {
   position: absolute;
   display: block;
-  background-color: var(--color-gray--400);
+  background-color: var(--color-gray--300);
   content: '';
   width: 50%;
   height: calc(100% - 4px);

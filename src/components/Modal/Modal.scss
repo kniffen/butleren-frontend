@@ -12,10 +12,10 @@
 
 .modal-button {
   font-size: 0.875rem;
+  font-weight: 600;
 }
 
 .modal {
-  position: relative;
   background-color: var(--color-gray--700);
   padding: 1rem;
   border-radius: 8px;
@@ -25,10 +25,13 @@
   width: 40rem;
   min-height: 30rem;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   &__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     font-size: 2rem;
     line-height: 1;
     cursor: pointer;

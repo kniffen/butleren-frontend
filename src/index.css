@@ -1,13 +1,13 @@
 :root {
-  --color-gray--900: #0C0E0D;
-  --color-gray--800: #181818;
-  --color-gray--700: #282828;
-  --color-gray--600: #343434;
-  --color-gray--500: #4A4A4A;
-  --color-gray--400: #818181;
-  --color-gray--300: #AEAEAE;
-  --color-gray--200: #CCCCCC;
-  --color-gray--100: #FFFFFF;
+  --color-gray--900: #141815;
+  --color-gray--800: #141916;
+  --color-gray--700: #1b211e;
+  --color-gray--600: #1d2320;
+  --color-gray--500: #212725;
+  --color-gray--400: #37413e;
+  --color-gray--300: #818181;
+  --color-gray--200: #AEAEAE;
+  --color-gray--100: #ececec;
 
   --color-turquoise--400: #19D8B4;
   --color-red--400:       #D81919;
@@ -39,7 +39,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-gray--800);
+  background-color: var(--color-gray--900);
   color: var(--color-white--400);
   text-align: left;
   word-wrap: break-word;
@@ -54,8 +54,8 @@ a {
 input,
 select,
 button {
-  background-color: var(--color-gray--900);
-  color: var(--color-gray--200);
+  background-color: var(--color-gray--400);
+  color: var(--color-gray--100);
   border: none;
   border-radius: 2px;
   padding: 0.5rem 0.5rem;
@@ -68,10 +68,11 @@ select {
   background-size: 1rem;
   appearance: none;
   -webkit-appearance: none;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
 }
 
 button {
-  background-color: var(--color-gray--400);
+  background-color: var(--color-gray--300);
   color: var(--color-gray--900);
   font-size: 1rem;
   font-weight: 500;

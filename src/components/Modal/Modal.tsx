@@ -19,8 +19,10 @@ export const Modal = function({ title, buttonText, children, onClose }: ModalPro
       createPortal(
       <div className="modal-background" onClick={() => { setIsOpen(false); onClose?.(); }}>
         <div className="modal" onClick={(e) => { e.stopPropagation(); }}>
-          <span className="modal__close" onClick={() => { setIsOpen(false); onClose?.(); }}>&times;</span>
-          <h2 className="modal__title">{title}</h2>
+          <header className="modal__header">
+            <h2 className="modal__title">{title}</h2>
+            <span className="modal__close" onClick={() => { setIsOpen(false); onClose?.(); }}>&times;</span>
+          </header>
           {children}
         </div>
       </div>,
