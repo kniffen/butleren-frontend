@@ -56,7 +56,7 @@ export function TwitchChannelsModal(): JSX.Element {
                   service="twitch"
                   onSelect={(result) => setNotificationConfig({
                     ...notificationConfig,
-                    channelId: result.id,
+                    id: result.id,
                   })}
                 />
                 <hr />
