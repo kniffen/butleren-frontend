@@ -3,9 +3,18 @@
   flex-direction: column;
   gap: 2rem;
 
-  &__items,
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+  }
+
   &__buttons {
     display: flex;
+  }
+
+  &__items,
+  &__buttons {
     gap: 1rem;
   }
 

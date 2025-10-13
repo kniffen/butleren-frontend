@@ -21,7 +21,7 @@
 
   &__row {
     display: grid;
-    grid-template-columns: 1fr  2rem 1fr 1fr auto;
+    grid-template-columns: 9rem 2rem repeat(3, 9rem) auto;
     padding: 0.5rem;
     gap: 1rem;
 
