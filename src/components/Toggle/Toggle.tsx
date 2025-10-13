@@ -1,4 +1,4 @@
-import { useMemo, useState, type JSX } from 'react';
+import { useState, type JSX } from 'react';
 import { classnames } from '../../utils/classnames';
 import styles from './Toggle.module.scss';
 
@@ -13,7 +13,7 @@ export interface ToggleProps {
 export function Toggle({ className, defaultChecked, name, isLocked, onChange }: ToggleProps): JSX.Element {
   const [checked, setChecked] = useState(defaultChecked);
   const [checking, setChecking] = useState(false);
-  const id = useMemo(() => `toggle-${crypto.randomUUID()}`, []);
+  const [id] = useState(() => `toggle-${Math.random().toString(36).substr(2, 9)}`);
 
   return (
     <div className={classnames(
