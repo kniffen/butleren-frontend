@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import { schemas } from '@kniffen/butleren-api-contract';
+import { schemas } from '@kniffen/butleren-api-specification';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { YouTubeChannelsModalContext } from '../YouTubeChannelsModal/YouTubeChannelsModal';
 import { Toggle } from '../../Toggle/Toggle';
@@ -26,10 +26,11 @@ export function YouTubeChannelForm(): JSX.Element {
 
     const formData = new FormData(form);
     const newNotificationConfig = schemas.YouTubeNotificationConfig.safeParse({
-      channelId:             formData.get('channel'),
-      includeLiveStreams:    'on' === formData.get('include-live'),
-      notificationChannelId: formData.get('notification-channel'),
-      notificationRoleId:    formData.get('notification-role'),
+      channelId:              formData.get('channel'),
+      includeLiveStreams:     'on' === formData.get('include-live'),
+      notificationChannelId:  formData.get('notification-channel'),
+      notificationRoleId:     formData.get('notification-role'),
+      liveNotificationRoleId: formData.get('live-notification-role'),
     });
 
     if (!newNotificationConfig.success) {
@@ -77,7 +78,15 @@ export function YouTubeChannelForm(): JSX.Element {
 
       <div className="youtube-channel-form__item">
         <label>Include live streams</label>
-        <Toggle defaultChecked={!!notificationConfig?.includeLiveStreams} name='include-live'/>
+        <Toggle defaultChecked={!!notificationConfig?.includeLiveStreams} name='include-live' />
+      </div>
+
+      <div className="youtube-channel-form__item">
+        <label>Live stream notification role</label>
+        <select name="live-notification-role" defaultValue={notificationConfig?.liveNotificationRoleId ?? ''}>
+          <option value="">None</option>
+          {guild.data?.roles?.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)}
+        </select>
       </div>
     </div>
 

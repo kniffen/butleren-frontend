@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState, type JSX } from 'react';
-import { schemas } from '@kniffen/butleren-api-contract';
+import { schemas } from '@kniffen/butleren-api-specification';
 import { useAPI } from '../../../provider/hooks/useAPI';
 import { TwitchChannelsModalContext } from '../TwitchChannelsModal/TwitchChannelsModal';
 import './TwitchChannelForm.scss';

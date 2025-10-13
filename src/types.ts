@@ -1,4 +1,4 @@
-import { schemas } from '@kniffen/butleren-api-contract';
+import { schemas } from '@kniffen/butleren-api-specification';
 import { z } from 'zod';
 
 export type Guild           = z.infer<typeof schemas.Guild>;

@@ -17,7 +17,7 @@
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "sass": "^1.86.3",
-    "@kniffen/butleren-api-contract": "git+https://github.com/kniffen/butleren-api-contract.git"
+    "@kniffen/butleren-api-specification": "git+https://github.com/kniffen/butleren-api-specification.git"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

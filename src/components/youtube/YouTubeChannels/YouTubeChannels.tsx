@@ -9,6 +9,7 @@ interface YouTubeChannelTableItem {
   name: string;
   channel: string;
   role: string;
+  liveRole: string;
   youtubeChannel: YouTubeChannel;
   notificationConfig: YouTubeNotificationConfig;
 }
@@ -20,13 +21,15 @@ export function YouTubeChannels(): JSX.Element {
 
   const tableItems = useMemo<YouTubeChannelTableItem[]>(() => {
     return youtube.channels.map((channel) => {
-      const discordChannel = guild.data?.channels?.find((c) => c.id === channel.notificationConfig.notificationChannelId);
-      const discordRole = guild.data?.roles?.find((r) => r.id === channel.notificationConfig.notificationRoleId);
+      const discordChannel  = guild.data?.channels?.find((c) => c.id === channel.notificationConfig.notificationChannelId);
+      const discordRole     = guild.data?.roles?.find((r) => r.id === channel.notificationConfig.notificationRoleId);
+      const liveDiscordRole = guild.data?.roles?.find((r) => r.id === channel.notificationConfig.liveNotificationRoleId);
 
       return {
         name:               channel.name,
         channel:            discordChannel?.name || 'N/A',
         role:               discordRole?.name    || '',
+        liveRole:           liveDiscordRole?.name || '',
         youtubeChannel:     channel,
         notificationConfig: channel.notificationConfig,
       };
@@ -67,6 +70,7 @@ export function YouTubeChannels(): JSX.Element {
         <span>Live</span>
         <span>Notification channel</span>
         <span>Notification role</span>
+        <span>Live notification role</span>
         <span>Actions</span>
       </div>
 
@@ -76,6 +80,7 @@ export function YouTubeChannels(): JSX.Element {
           <span>{item.notificationConfig.includeLiveStreams ? 'Yes' : 'No'}</span>
           <span>{item.channel}</span>
           <span>{item.role}</span>
+          <span>{item.liveRole}</span>
           <span className="youtube-channel__actions">
             <span className="material-symbols-outlined" onClick={() => { onEditHandler(item);}}>edit_square</span>
             <span className="material-symbols-outlined delete" onClick={() => { onDeleteHandler(item.youtubeChannel.channelId);}}>delete</span>
@@ -93,10 +98,11 @@ const AddYouTubeChannelButton = (): JSX.Element => {
 
   const onClickHandler = (): void => {
     setNotificationConfig({
-      channelId:             '',
-      includeLiveStreams:    false,
-      notificationChannelId: '',
-      notificationRoleId:    '',
+      channelId:              '',
+      includeLiveStreams:     false,
+      notificationChannelId:  '',
+      notificationRoleId:     null,
+      liveNotificationRoleId: null,
     });
   };
 
