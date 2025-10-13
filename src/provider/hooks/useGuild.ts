@@ -24,6 +24,9 @@ export const useGuild = (): GuildHook => {
     }
 
     const data = await res.json() as Guild;
+    data.channels?.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    data.roles?.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
     setData(data);
     setIsLoading(false);
   }, []);
