@@ -34,7 +34,7 @@ export function SearchForm({ initialQuery, service, onSelect }: SearchFormProps)
       setSearchResults(curateSearchResults(query.toString(), results));
       setIsSearching(false);
     }
-  }, [setSearchResults]);
+  }, [service]);
 
   useEffect(() => {
     if (initialQuery && !hasInitialized.current) {

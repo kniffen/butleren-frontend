@@ -44,7 +44,8 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars":                "error", // disallow unused variables
       "@typescript-eslint/no-import-type-side-effects":   "error", // disallow non-null assertion in locations that may be confusing
       "@typescript-eslint/explicit-function-return-type": "error", // require explicit return types on functions and class methods
-      'react-refresh/only-export-components': [
+      "react-hooks/set-state-in-effect":                  "warn",  // Prevent calling a state setter function in useEffect without a dependency array
+      "react-refresh/only-export-components": [
         'warn',
         { allowConstantExport: true },
       ],
