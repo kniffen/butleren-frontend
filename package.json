@@ -20,7 +20,7 @@
     "@kniffen/butleren-api-specification": "git+https://github.com/kniffen/butleren-api-specification.git"
   },
   "devDependencies": {
-    "@eslint/js": "^9.38.0",
+    "@eslint/js": "^9.39.2",
     "@types/node": "^24.6.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.2.2",
