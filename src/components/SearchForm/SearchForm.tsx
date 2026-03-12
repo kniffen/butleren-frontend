@@ -7,7 +7,7 @@ import './SearchForm.scss';
 
 interface SearchFormProps {
   initialQuery?: string;
-  service: 'kick' | 'twitch' | 'spotify' | 'youtube';
+  service: 'kick' | 'twitch' | 'youtube';
   onSelect: (result: SearchResult) => void;
 }
 
