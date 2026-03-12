@@ -4,7 +4,6 @@ import { Card } from '../../components/Card/Card';
 import { Toggle } from '../../components/Toggle/Toggle';
 import { KickChannelsModal } from '../kick/KickChannelsModal/KickChannelsModal';
 import { TwitchChannelsModal } from '../twitch/TwitchChannelsModal/TwitchChannelsModal';
-import { SpotifyShowsModal } from '../spotify/SpotifyShowsModal/SpotifyShowsModal';
 import { YouTubeChannelsModal } from '../youtube/YouTubeChannelsModal/YouTubeChannelsModal';
 import './Modules.scss';
 
@@ -42,9 +41,6 @@ function ModuleModals({ slug }: {slug: string}): ReactNode {
     }
     case 'twitch': {
       return <TwitchChannelsModal />;
-    }
-    case 'spotify': {
-      return <SpotifyShowsModal />;
     }
     case 'youtube': {
       return <YouTubeChannelsModal />;

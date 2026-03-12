@@ -7,7 +7,6 @@ import { useLogs } from './hooks/useLogs';
 import { useUsers } from './hooks/useUsers';
 import { useKick } from './hooks/useKick';
 import { useTwitch } from './hooks/useTwitch';
-import { useSpotify } from './hooks/useSpotify';
 import { useYouTube } from './hooks/useYouTube';
 
 export interface APIProviderState {
@@ -19,7 +18,6 @@ export interface APIProviderState {
   logs:     ReturnType<typeof useLogs>;
   kick:     ReturnType<typeof useKick>;
   twitch:   ReturnType<typeof useTwitch>;
-  spotify:  ReturnType<typeof useSpotify>;
   youtube:  ReturnType<typeof useYouTube>;
 }
 
@@ -34,7 +32,6 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
   const logs = useLogs();
   const kick = useKick(guild.data);
   const twitch = useTwitch(guild.data);
-  const spotify = useSpotify(guild.data);
   const youtube = useYouTube(guild.data);
 
   return (
@@ -47,7 +44,6 @@ export function APIProvider({ children }: {children: React.ReactNode}): JSX.Elem
       logs,
       kick,
       twitch,
-      spotify,
       youtube,
     }}>
       {children}
