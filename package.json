@@ -15,7 +15,7 @@
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.12.0",
+    "react-router-dom": "^7.18.0",
     "sass": "^1.86.3",
     "@kniffen/butleren-api-specification": "git+https://github.com/kniffen/butleren-api-specification.git"
   },
